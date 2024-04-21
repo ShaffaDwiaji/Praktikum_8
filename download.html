@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Download Dialog with Progress Bar</title>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+        <script>
+        $(document).ready(function(){
+            // Inisialisasi dialog
+            $("#downloadDialog").dialog({
+                autoOpen: false, // Jendela dialog tidak akan terbuka secara otomatis saat halaman dimuat
+                modal: true, // Dialog akan modal, artinya pengguna harus menutup dialog sebelum dapat melakukan interaksi dengan elemen lain di halaman
+                closeOnEscape: false, // Tidak mengizinkan menutup dialog dengan tombol escape
+                resizable: false, // Dialog tidak dapat diubah ukurannya
+                draggable: false, // Dialog tidak dapat digeser
+                width: 400, // Lebar dialog
+                title: "Download", // Judul dialog
+                buttons: { // Tombol-tombol yang ditampilkan di jendela dialog
+                    "Batal": function() { // Tombol "Batal"
+                        $(this).dialog("close"); // Fungsi untuk menutup jendela dialog
+                    }
+                }
+            });
+
+            // Event handler saat tombol "Download" diklik
+            $("#downloadButton").click(function(){
+                // Tampilkan jendela dialog
+                $("#downloadDialog").dialog("open");
+
+                // Dummy progress bar
+                var progressBar = $("#progressBar");
+                var progressLabel = $(".progress-label");
+                var progress = 0;
+
+                function progress() {
+                    var val = progressLabel.text() || 0;
+                    progressBar.progressbar({
+                        value: val,
+                        change: function() {
+                            progressLabel.text(progressBar.progressbar("value") + "%");
+                        },
+                        complete: function() {
+                            progressLabel.text("Complete!");
+                        }
+                    });
+
+                    // Update progress bar value secara periodik
+                    var timer = setInterval(function() {
+                        progress += 5;
+                        if (progress > 100) {
+                            clearInterval(timer);
+                        }
+                        progressBar.progressbar("value", progress);
+                    }, 1000);
+                }
+
+                progress();
+            });
+        });
+        </script>
+    </head>
+    <body>
+
+        <!-- Tombol untuk membuka jendela dialog download -->
+        <button id="downloadButton">Download</button>
+
+        <!-- Konten jendela dialog download -->
+        <div id="downloadDialog">
+            <div class="progress-label">Mengunduh...</div>
+            <div id="progressBar"></div>
+        </div>
+
+    </body>
+</html>

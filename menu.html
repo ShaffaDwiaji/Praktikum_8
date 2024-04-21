@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Contoh Menu jQuery</title>
+        <style>
+            /* CSS untuk styling menu */
+            .menu {
+                list-style-type: none;
+                margin: 1%;
+                padding: 0;
+                display: none;
+            }
+            
+            .menu li {
+                display: inline-block;
+                margin-right: 10px;
+            }
+            
+            .menu li a {
+                text-decoration: none;
+                color: #333;
+                padding: 5px 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+            
+            .menu li a:hover {
+                background-color: #f0f0f0;
+            }
+        </style>
+    </head>
+    <body>
+        <button id="tombol-menu">Menu</button>
+        <ul class="menu">
+            <li><a href="#">Beranda</a></li>
+            <li><a href="#">Tentang Kami</a></li>
+            <li><a href="#">Produk</a></li>
+            <li><a href="#">Kontak</a></li>
+        </ul>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+        $(document).ready(function(){
+            // Mengubah warna latar belakang saat menu dihover
+            $('.menu li a').hover(function(){
+                $(this).css('background-color', '#f0f0f0');
+            }, function(){
+                $(this).css('background-color', 'transparent');
+            });
+
+            // Sembunyikan menu saat halaman dimuat
+            $(".menu").hide();
+
+            // Tampilkan/sembunyikan menu saat tombol diklik
+            $("#tombol-menu").click(function() {
+                $(".menu").toggle();
+            });
+        });
+        </script>
+
+    </body>
+</html>

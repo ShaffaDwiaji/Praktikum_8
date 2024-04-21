@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <title>Program Jam</title>
+        <style>
+            * {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            #clock {
+                font-size: 24px;
+                text-align: center;
+                margin-top: 50px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="clock"></div>
+        <script>
+            function updateTime() {
+                var now = new Date();
+                var hours = now.getHours();
+                var minutes = now.getMinutes();
+                var seconds = now.getSeconds();
+                var date = now.toDateString();
+            
+                // Tambahkan nol di depan angka jika kurang dari 10
+                hours = (hours < 10) ? "0" + hours : hours;
+                minutes = (minutes < 10) ? "0" + minutes : minutes;
+                seconds = (seconds < 10) ? "0" + seconds : seconds;
+            
+                var timeString = hours + ":" + minutes + ":" + seconds;
+                var dateString = date;
+            
+                // Update teks pada elemen dengan id "clock"
+                document.getElementById('clock').innerHTML = timeString + "<br>" + dateString;
+            
+                // Panggil updateTime setiap detik
+                setTimeout(updateTime, 1000);
+            }
+            
+            // Panggil updateTime untuk pertama kali
+            updateTime();
+        </script>
+    </body>
+</html>
